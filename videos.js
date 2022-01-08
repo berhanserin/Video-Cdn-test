@@ -17,10 +17,10 @@ function command(path) {
             hls_segment_filename,
             '-hls_time 6',
             '-hls_list_size 0',
-            // format
             '-f hls',
         ])
         .output(out_file)
+        .setStartTime(50).setDuration(30)
         .on('end', (stdout, stderr) => {
             console.log('Transcoding succeeded !');
         })
