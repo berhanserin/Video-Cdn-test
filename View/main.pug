@@ -1,0 +1,22 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  title HLS Player
+video#video(width='500' height='500' controls='')
+script(src='https://cdn.jsdelivr.net/npm/hls.js@latest')
+script.
+  const video = document.getElementById('video');
+  const videoSrc = 'public/assets/segments/1641588448260/index.m3u8';
+  if (Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(videoSrc);
+  hls.attachMedia(video);
+  hls.on(Hls.Events.MANIFEST_PARSED, () => {
+  video.play();
+  });
+  } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  video.src = videoSrc;
+  video.addEventListener('loadedmetadata', () => {
+  video.play();
+  });
+  }
